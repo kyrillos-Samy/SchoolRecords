@@ -1,0 +1,28 @@
+﻿@page
+@model SchoolRecordsWeb.Pages.Student.EditModel
+@{
+    ViewData["Title"] = "Edit Student";
+}
+<h1>Create Student</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @for (int i = 0; i < Model.Student.StudentData.Count; i++)
+            {
+                <div class="form-group">
+                @Html.DisplayFor(model => model.Student.StudentData[i].StudentDataConfiguration.FieldName)
+                @Html.HiddenFor(Model => Model.Student.StudentData[i].StudentDataConfigurationId)
+                @Html.HiddenFor(Model => Model.Student.Id)
+                @Html.HiddenFor(Model => Model.Student.StudentData[i].Id)
+                <input asp-for="Student.StudentData[i].Value" class="form-control" />
+            </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@page
+@model SchoolRecordsWeb.Pages.StudentsModel
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h1>Students</h1>
+
+<p>
+    <a asp-page="Student/Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.HiddenFor(model => model.Students[0].Id) 
+            </th>
+            @for (int i = 0; i < Model.Students[0].StudentDataConfigurations.Count; i++)
+            {
+                <th>
+                    @Html.DisplayFor(model => model.Students[0].StudentDataConfigurations[i].FieldName)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Students.Count; i++)
+        {
+        <tr>
+            <td>
+                    @Html.DisplayFor(model => model.Students[i].Id)
+            </td>
+                @for (int j = 0; j < Model.Students[i].StudentData.Count; j++)
+                {
+                    <td>
+                        @if (Model.Students[i].StudentData[j].StudentDataConfigurationId == Model.Students[0].StudentDataConfigurations[j].Id)
+                        {
+                            @Html.DisplayFor(model => model.Students[i].StudentData[j].Value)
+                        }
+                    </td>
+                }
+            <td>
+                   <a asp-page="Student/Edit" asp-route-id="@Model.Students[i].Id">Edit</a> |
+                   <a asp-page="Student/Courses" asp-route-id="@Model.Students[i].Id">Courses</a> 
+                    @*<a asp-page="./Delete" asp-route-id="@student.Id">Delete</a>*@
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
